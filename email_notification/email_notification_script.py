@@ -63,7 +63,6 @@ file = open(CHANGED_FILES_PATH, 'r')
 changed_files = read_changed_info(file.read()) 
 
 #email struct : {receiver : 'test@receiver.com', files : ['actual/file/name1.txt', 'actual/file/name2.txt']}
-#add aibility to parse regex, add check on valid regex in "folder" column
 emails = []
 with open(EMAIL_FILES_CONFIG_FILE, 'r') as configFile:
 	config = json.load(configFile)

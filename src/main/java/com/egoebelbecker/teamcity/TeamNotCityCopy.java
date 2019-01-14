@@ -1,6 +1,6 @@
 package com.egoebelbecker.teamcity;
 
-public class TeamCity {
+public class TeamNotCityCopy {
 
 //change in copy
     public boolean getStatus() {
