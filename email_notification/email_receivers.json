@@ -1,0 +1,4 @@
+[{
+	"email": "daria.pindus@atola.com",
+	"files": ["email_notification/\\.*", ".*TeamCity.*", ".*Bitlocker.*","Sources\\/GUILib\\/Controls\\/AvalonEdit\\/"]
+}]

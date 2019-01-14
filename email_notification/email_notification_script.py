@@ -2,15 +2,15 @@ import csv
 import re
 from smtplib import SMTP_SSL as SMTP
 from email.mime.text import MIMEText
+import json
 
-EMAIL_FILES_CONFIG_FILE="email_receivers.csv"
+EMAIL_FILES_CONFIG_FILE="email_receivers.json"
 CHANGED_FILES_TC_PATH="%system.teamcity.build.changedFiles.file%"		#"%system.teamcity.build.changedFiles.file%"
 CHANGED_FILES_PATH="changelog.txt"
 CHANGED_FILES_INFO_SEPARATOR=":"
 CHANGE_TYPE_PROPERTY_NAME="changeType"
-CSV_EMAIL_COLUMN_NAME="email"
-CSV_FILE_COLUMN_NAME="file_path"
-CSV_FILE_SEPARATOR=";"
+JSON_EMAIL_PROP_NAME="email"
+JSON_FILE_PROP_NAME="files"
 EMAIL_STRUCT_EMAIL_KEY="email"
 EMAIL_STRUCT_FILENAME_KEY="files"
 '''
@@ -64,19 +64,19 @@ changed_files = read_changed_info(file.read())
 
 #email struct : {receiver : 'test@receiver.com', files : ['actual/file/name1.txt', 'actual/file/name2.txt']}
 #add aibility to parse regex, add check on valid regex in "folder" column
-input_file = csv.DictReader(open(EMAIL_FILES_CONFIG_FILE))
 emails = []
-for row in input_file:
-	#get the format {'email': 'test@receiver.com', 'file_path': '*Bitlocker.*;Sources\/MainApplication\/Diagnostics\/Helpers\/.*'}
-	files = []
-	for regexName in row[CSV_FILE_COLUMN_NAME].split(CSV_FILE_SEPARATOR):
-		for fileName in changed_files.keys():
-			print("fileName : " + fileName + ", regexName " + regexName )
-			if re.match(regexName, fileName):
-				print("MATCH!")
-				files.append(fileName) 		
-	if files :
-		emails.append({EMAIL_STRUCT_EMAIL_KEY : row[CSV_EMAIL_COLUMN_NAME], EMAIL_STRUCT_FILENAME_KEY : files})
+with open(EMAIL_FILES_CONFIG_FILE, 'r') as configFile:
+	config = json.load(configFile)
+	for userConfig in config:
+		print("userConfig " + str(userConfig))
+		files = []
+		for regexName in userConfig[JSON_FILE_PROP_NAME]:
+			for fileName in changed_files.keys():
+				if re.match(regexName, fileName):
+					files.append(fileName)
+					
+		if files:
+			emails.append({EMAIL_STRUCT_EMAIL_KEY : userConfig[JSON_EMAIL_PROP_NAME], EMAIL_STRUCT_FILENAME_KEY : files})
 
 if emails:
 	send_emails(emails)

@@ -1,0 +1,5 @@
+Sources/GUILib/Controls/AvalonEdit/Highlighting/Xshd/V2Loader.cs:ADDED:fdisjfksdj
+Sources/MainApplication/Diagnostics/Helpers/BitlockerHelper.cs:ADDED:fdisjfksdj
+Sources/MainApplication/Lib/CopyMap/BitBlock.cs:CHANGED:fdsfsdfds
+Sources/GUILib/Controls/AvalonEdit/Search/Localization.cs:ADDED:fdisjfksdj
+Helpers/BitlockerVistaHelper.cs:CHANGED:tyuiroep
