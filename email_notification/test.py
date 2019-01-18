@@ -1,6 +1,5 @@
-import json
-
-with open('email_receivers.json', 'r') as configFile:
-	config = json.load(configFile)
-	print("whatever")
-	print(str(config[0]))
+l = []
+for i in range(5):
+	if i%2 == 0:
+		l.append(str(i))
+print(str(l))

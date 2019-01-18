@@ -1,5 +1,7 @@
-Sources/GUILib/Controls/AvalonEdit/Highlighting/Xshd/V2Loader.cs:ADDED:fdisjfksdj
-Sources/MainApplication/Diagnostics/Helpers/BitlockerHelper.cs:ADDED:fdisjfksdj
-Sources/MainApplication/Lib/CopyMap/BitBlock.cs:CHANGED:fdsfsdfds
-Sources/GUILib/Controls/AvalonEdit/Search/Localization.cs:ADDED:fdisjfksdj
-Helpers/BitlockerVistaHelper.cs:CHANGED:tyuiroep
+email_notification/file1:CHANGED:fdsflsd
+somewhere/email_notification/file2:CHANGED:fdsflsd
+somwhere/Bitlocker/BitlockerHelper.cs:CHANGED:fdsflsd
+somwhere/Bitlocker/DiffName.cs:CHANGED:fdsflsd
+somwhere/else/BitlockerVista:CHANGED:fdsflsd
+whatever/here:CHANGED:fdsflsd
+

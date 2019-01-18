@@ -30,40 +30,45 @@ def send_emails(emailList):
 	USERNAME = "robots@hdd-tools.com"
 	PASSWORD = "CwyKKqW9XEoa"
 	text_subtype = 'plain'
-	subject="Your freshly made changes"
+	subject="Псс, немного изменений не хочешь?"
 	
 	conn = SMTP(SMTPserver)
 	#conn.set_debuglevel(True) 
 	try : 
 		conn.login(USERNAME, PASSWORD)
 		for email in emailList : 
-			content = 'Someone did some things to ' + ','.join(email[EMAIL_STRUCT_FILENAME_KEY]) + '\n. Please review.'
+			content = 'Посмотри, что наделали в ' + ', '.join(email[EMAIL_STRUCT_FILENAME_KEY]) + '. \nHave a good day.'
 			msg = MIMEText(content, text_subtype)
 			msg['Subject']= subject
 			msg['From']   = sender
 			msg['To'] = email[EMAIL_STRUCT_EMAIL_KEY]
 			destination = email[EMAIL_STRUCT_EMAIL_KEY]
-			conn.sendmail(sender, destination, msg.as_string())
+			print ("EMAIL : " + content)
+			#conn.sendmail(sender, destination, msg.as_string())
 	finally:
 		conn.quit()
 		
-#read file with commited changes, format is specified here https://confluence.jetbrains.com/display/TCD7/Risk+Tests+Reordering+in+Custom+Test+Runner
-file = open(CHANGED_FILES_PATH, 'r') 
-changed_files = read_changed_info(file.read()) 
+		
+try : 
+	#read file with commited changes, format is specified here https://confluence.jetbrains.com/display/TCD7/Risk+Tests+Reordering+in+Custom+Test+Runner
+	file = open(CHANGED_FILES_PATH, 'r') 
+	changed_files = read_changed_info(file.read()) 
 
-#email struct : {receiver : 'test@receiver.com', files : ['actual/file/name1.txt', 'actual/file/name2.txt']}
-emails = []
-with open(EMAIL_FILES_CONFIG_FILE, 'r') as configFile:
-	config = json.load(configFile)
-	for userConfig in config:
-		files = []
-		for regexName in userConfig[JSON_FILE_PROP_NAME]:
-			for fileName in changed_files.keys():
-				if re.match(regexName, fileName):
-					files.append(fileName)
-					
-		if files:
-			emails.append({EMAIL_STRUCT_EMAIL_KEY : userConfig[JSON_EMAIL_PROP_NAME], EMAIL_STRUCT_FILENAME_KEY : files})
+	#email struct : {receiver : 'test@receiver.com', files : ['actual/file/name1.txt', 'actual/file/name2.txt']}
+	emails = []
+	with open(EMAIL_FILES_CONFIG_FILE, 'r') as configFile:
+		config = json.load(configFile)
+		for userConfig in config:
+			files = []
+			for regexName in userConfig[JSON_FILE_PROP_NAME]:
+				for fileName in changed_files.keys():
+					if re.match(regexName, fileName):
+						files.append(fileName)
+						
+			if files:
+				emails.append({EMAIL_STRUCT_EMAIL_KEY : userConfig[JSON_EMAIL_PROP_NAME], EMAIL_STRUCT_FILENAME_KEY : files})
 
-if emails:
-	send_emails(emails)
+	if emails:
+		send_emails(emails)
+except Exception as e: 
+	print("Exception occured : " + str(e))
