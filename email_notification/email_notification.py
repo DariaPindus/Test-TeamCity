@@ -48,7 +48,6 @@ def send_emails(emailList):
 	finally:
 		conn.quit()
 		
-		
 try : 
 	#read file with commited changes, format is specified here https://confluence.jetbrains.com/display/TCD7/Risk+Tests+Reordering+in+Custom+Test+Runner
 	file = open(CHANGED_FILES_PATH, 'r') 
